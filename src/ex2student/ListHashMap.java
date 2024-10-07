@@ -2,32 +2,24 @@ package ex2student;
 
 import java.util.*;
 
-/**
- * SetHashMap<K,V> implements the MapI<K,V> interface.
- * Note: null is not allowed as a key or a value.
- * Note: Keys must obey the contract for hashCode(), that is,
- *  if k1.equals(k2) is true, then k1.hashCode() == k2.hashCode().
- *  Note: Keys used in a HashMap must be immutable
- *  (more precisely: a change in a key must not change the hashCode()).
- */
-public class SetHashMap<K, V> implements MapI<K, V> {
+public class ListHashMap<K, V> implements MapI<K, V> {
     // capacity is the size of the hash table
     private final int capacity;
     // size is number of entries in this map
     private int size;
     // table is the hash table
-    private final HashSet<Entry<K,V>>[] table;
+    private final LinkedList<Entry<K,V>>[] table;
 
-    public SetHashMap() {
+    public ListHashMap() {
         capacity = 11;
         size = 0;
         @SuppressWarnings("unchecked")
-        HashSet<Entry<K,V>>[] emptyTable = new HashSet[capacity];
+        LinkedList<Entry<K,V>>[] emptyTable = new LinkedList[capacity];
         table = emptyTable;
 
         // fill the table with empty hash sets
         for (int i = 0; i < table.length; i++) {
-            table[i] = new HashSet<>();
+            table[i] = new LinkedList<>();
         }
     }
 
@@ -100,7 +92,7 @@ public class SetHashMap<K, V> implements MapI<K, V> {
     @Override
     public Set<K> keys() {
         Set<K> keys = new LinkedHashSet<>();
-        for (HashSet<Entry<K, V>> entries : table) {
+        for (LinkedList<Entry<K, V>> entries : table) {
             for (Entry<K, V> entry : entries) {
                 keys.add(entry.key);
             }
@@ -114,7 +106,7 @@ public class SetHashMap<K, V> implements MapI<K, V> {
     @Override
     public List<V> values() {
         List<V> values = new LinkedList<>();
-        for (HashSet<Entry<K, V>> entries : table) {
+        for (LinkedList<Entry<K, V>> entries : table) {
             for (Entry<K, V> entry : entries) {
                 values.add(entry.value);
             }
@@ -127,7 +119,7 @@ public class SetHashMap<K, V> implements MapI<K, V> {
      */
     public Set<MapI.Entry<K, V>> entries() {
         Set<MapI.Entry<K,V>> newEntries = new LinkedHashSet<>();
-        for (HashSet<Entry<K, V>> entries : table) {
+        for (LinkedList<Entry<K, V>> entries : table) {
             newEntries.addAll(entries);
         }
         return newEntries;
