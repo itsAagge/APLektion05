@@ -17,7 +17,7 @@ public class ListHashMap<K, V> implements MapI<K, V> {
         LinkedList<Entry<K,V>>[] emptyTable = new LinkedList[capacity];
         table = emptyTable;
 
-        // fill the table with empty hash sets
+        // fill the table with empty linked lists
         for (int i = 0; i < table.length; i++) {
             table[i] = new LinkedList<>();
         }
@@ -92,8 +92,8 @@ public class ListHashMap<K, V> implements MapI<K, V> {
     @Override
     public Set<K> keys() {
         Set<K> keys = new LinkedHashSet<>();
-        for (LinkedList<Entry<K, V>> entries : table) {
-            for (Entry<K, V> entry : entries) {
+        for (LinkedList<Entry<K, V>> entriesList : table) {
+            for (Entry<K, V> entry : entriesList) {
                 keys.add(entry.key);
             }
         }
@@ -106,8 +106,8 @@ public class ListHashMap<K, V> implements MapI<K, V> {
     @Override
     public List<V> values() {
         List<V> values = new LinkedList<>();
-        for (LinkedList<Entry<K, V>> entries : table) {
-            for (Entry<K, V> entry : entries) {
+        for (LinkedList<Entry<K, V>> entriesList : table) {
+            for (Entry<K, V> entry : entriesList) {
                 values.add(entry.value);
             }
         }
@@ -119,8 +119,8 @@ public class ListHashMap<K, V> implements MapI<K, V> {
      */
     public Set<MapI.Entry<K, V>> entries() {
         Set<MapI.Entry<K,V>> newEntries = new LinkedHashSet<>();
-        for (LinkedList<Entry<K, V>> entries : table) {
-            newEntries.addAll(entries);
+        for (LinkedList<Entry<K, V>> entriesList : table) {
+            newEntries.addAll(entriesList);
         }
         return newEntries;
     }
